@@ -8,17 +8,17 @@ for i in [0, -7.5, 7.5]:
     for j in [0, -7.5, 7.5]:
         boundery_conditions.append([i, j, 0])
 
+# Beams boundery counditions
 bc_p1 = Points(boundery_conditions)
 bc_q1 = Points(boundery_conditions).y(50)
 
-    
-beam_p1 = Mesh('./data/undeformed/beam_p1.vtu').c("red", 0.3).lw(3)
-beam_q1 = Mesh('./data/undeformed/beam_q1.vtu').c("grey3", 0.3).lw(3).y(50)
+# Undeformed P1 and Q1 beams, update the color in the c function 
+beam_p1 = Mesh('./data/undeformed/beam_p1.vtu').lighting('ambient').c("red").lw(3)
+beam_q1 = Mesh('./data/undeformed/beam_q1.vtu').lighting('ambient').c("yellow").lw(3).y(50)
 
-bc_p1 = beam_p1.clone().cutWithPointLoop(bc_p1, invert=False)
-bc_p1.c('grey5').lw(2)
+# Deformed P1 and Q1 beams, update the color in the c function 
+deformed_p1 = Mesh('Add deformed p1 mesh here ').c("red").lw(3)  # Can be generated with FEniCS or with the sofa STLExport component 
+deformed_q1 = Mesh('Add deformed p2 mesh here').c("yellow").lw(3).y(50) # Can be generated with FEniCS or with the sofa STLExport component 
 
-bc_q1 = beam_q1.clone().cutWithPointLoop(bc_q1, invert=False)
-bc_q1.c('grey5').lw(2)
-
-show(beam_p1, beam_q1, bc_p1, bc_q1, axes=1).close()
+# Showing everything
+show(beam_p1, beam_q1, bc_p1, bc_q1, deformed_p1, deformed_q1,  axes=1).close()
